@@ -16,12 +16,22 @@ class User:
 
 # Takes in two user objects and outputs a float denoting compatibility
 def compute_score(user1, user2):
-    # YOUR CODE HERE
-    return 0
 
+    # check gender preference
+    if user1.gender not in user2.preferences or user2.gender not in user1.preferences:
+        return 0
+
+    # check grad year compatibility
+    score = 0.5 - 0. * abs(user1.grad_year - user2.grad_year)
+
+    # check response compatibility
+    for i in range(len(user1.responses)):
+        if user1.responses[i] == user2.responses[i]:
+            score += 0.025
+    return score
 
 if __name__ == '__main__':
-    # Make sure input file is valid
+    # Make sure input file is validal
     if not os.path.exists(INPUT_FILE):
         print('Input file not found')
         sys.exit(0)
